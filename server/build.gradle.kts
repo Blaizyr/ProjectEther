@@ -16,8 +16,8 @@ application {
 dependencies {
     implementation(projects.shared)
     implementation(libs.logback)
-    implementation(libs.ktor.serverCore)
-    implementation(libs.ktor.serverNetty)
-    testImplementation(libs.ktor.serverTestHost)
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.bundles.koin.server)
+    implementation(libs.bundles.ktor.server)
     testImplementation(libs.kotlin.testJunit)
 }

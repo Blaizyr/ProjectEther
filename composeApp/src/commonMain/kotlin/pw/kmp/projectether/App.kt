@@ -20,29 +20,36 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     MaterialTheme {
-        var username by remember { mutableStateOf("") }
-        Column(
-            modifier = Modifier
-                .safeContentPadding()
-                .fillMaxSize()
-                .padding(vertical = 8.dp, horizontal = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+        LoginScreen()
+    }
+}
+
+@Composable
+@Preview
+fun LoginScreen() {
+    var username by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .safeContentPadding()
+            .fillMaxSize()
+            .padding(vertical = 8.dp, horizontal = 8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = "Your nickname:",
+            modifier = Modifier.fillMaxWidth(),
+        )
+        OutlinedTextField(
+            value = username,
+            onValueChange = { username = it },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.padding(8.dp))
+        TextButton(
+            onClick = { }
         ) {
-            Text(
-                text = "Your nickname:",
-                modifier = Modifier.fillMaxWidth(),
-            )
-            OutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(Modifier.padding(8.dp))
-            TextButton(
-                onClick = { }
-            ) {
-                Text(text = "Connect")
-            }
+            Text(text = "Connect")
         }
     }
 }
