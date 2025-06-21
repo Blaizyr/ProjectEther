@@ -14,7 +14,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.mp.KoinPlatform.getKoin
 
 @Composable
 @Preview
@@ -27,8 +29,9 @@ fun App() {
 @Composable
 @Preview
 fun LoginScreen() {
+    val gameClient: GameClient = getKoin().get<GameClient>()
     var username by remember { mutableStateOf("") }
-
+    val scope = rememberCoroutineScope()
     Column(
         modifier = Modifier
             .safeContentPadding()
@@ -47,7 +50,11 @@ fun LoginScreen() {
         )
         Spacer(Modifier.padding(8.dp))
         TextButton(
-            onClick = { }
+            onClick = {
+                scope.launch {
+                    gameClient.connect(username)
+                }
+            }
         ) {
             Text(text = "Connect")
         }
