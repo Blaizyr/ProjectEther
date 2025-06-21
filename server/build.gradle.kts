@@ -14,10 +14,10 @@ application {
 }
 
 dependencies {
-    implementation(projects.shared)
     implementation(libs.logback)
     implementation(project.dependencies.platform(libs.koin.bom))
     implementation(libs.bundles.koin.server)
     implementation(libs.bundles.ktor.server)
     testImplementation(libs.kotlin.testJunit)
+    implementation(projects.shared)
 }

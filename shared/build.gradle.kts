@@ -8,6 +8,8 @@ plugins {
 }
 
 val koinVersion = "3.5.3"
+val skipIos = project.findProperty("skipIos") == "true"
+
 kotlin {
     androidTarget {
         compilerOptions {
@@ -15,9 +17,11 @@ kotlin {
         }
     }
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    if (!skipIos) {
+        iosX64()
+        iosArm64()
+        iosSimulatorArm64()
+    }
 
     jvm()
 
@@ -39,13 +43,51 @@ kotlin {
     }
 
     sourceSets {
-        commonMain.dependencies {
-            implementation(libs.koin.core)
-            implementation(libs.bundles.ktor.client)
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.koin.core)
+                implementation(libs.bundles.ktor.client.base)
+                implementation(libs.kotlinx.serialization.json)
+            }
         }
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.bundles.platform.android)
+            }
+        }
+        val jvmMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.cio)
+            }
+        }
+        val wasmJsMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.js)
+            }
+        }
+/*
+     // --- Common ---
+        val commonMain by getting (
+            dependencies {
+                implementation(libs.koin.core)
+                implementation(libs.bundles.ktor.client.base)
+            }
+        )
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+        // --- Platforms ---
+//        iosMain.dependencies { libs.ktor.client.darwin }
+        wasmJsMain.dependencies { implementation(libs.ktor.client.js) }
+        jvmMain.dependencies { implementation(libs.ktor.client.cio) }
+        androidMain.dependencies { implementation(libs.ktor.client.okhttp) }
+        */
     }
 }
 

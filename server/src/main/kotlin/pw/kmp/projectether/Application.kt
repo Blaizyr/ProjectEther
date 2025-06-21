@@ -5,10 +5,9 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.koin.ktor.ext.inject
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
-import pw.kmp.projectether.di.appModule
+import pw.kmp.projectether.di.sharedModule
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
@@ -18,12 +17,11 @@ fun main() {
 fun Application.module() {
     install(Koin) {
         slf4jLogger()
-        modules(appModule)
+        modules(sharedModule)
     }
     routing {
         get("/") {
-            val greeting: Greeting by inject()
-            call.respondText("Ktor: ${greeting.greet()}")
+            call.respondText("Ktor server działa! Witaj w ProjectEther!")
         }
     }
 }
