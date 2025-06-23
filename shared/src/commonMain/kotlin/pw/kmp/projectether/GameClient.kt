@@ -7,7 +7,7 @@ import io.ktor.websocket.readText
 
 class GameClient(private val client: HttpClient) {
     suspend fun connect(username: String) {
-        client.webSocket("ws://localhost:8080/ws?username=$username") {
+        client.webSocket("ws://192.168.1.2:8080/ws?username=$username") {
             send(Frame.Text("HELLO FROM ${username.uppercase()}"))
             for (frame in incoming) {
                 if (frame is Frame.Text) {
