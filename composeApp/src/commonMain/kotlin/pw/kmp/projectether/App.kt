@@ -14,24 +14,35 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.launch
+import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.mp.KoinPlatform.getKoin
+import pw.kmp.projectether.viewModel.LoginComponent
+
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        LoginScreen()
+        val gameClient: GameClient = getKoin().get<GameClient>()
+        val componentContext = DefaultComponentContext(LifecycleRegistry()/*TODO("1.implement active lifecycle"*/)
+        LoginScreen(componentContext, gameClient)
     }
 }
 
 @Composable
 @Preview
-fun LoginScreen() {
-    val gameClient: GameClient = getKoin().get<GameClient>()
-    var username by remember { mutableStateOf("") }
-    val scope = rememberCoroutineScope()
+fun LoginScreen(
+    componentContext: ComponentContext,
+    gameClient: GameClient
+) {
+    val loginComponent = remember(componentContext, gameClient) {
+        LoginComponent(gameClient, componentContext)
+    }
+    val uiState by loginComponent.uiState.collectAsState()
+
     Column(
         modifier = Modifier
             .safeContentPadding()
@@ -44,17 +55,13 @@ fun LoginScreen() {
             modifier = Modifier.fillMaxWidth(),
         )
         OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
+            value = uiState.username,
+            onValueChange = { loginComponent.onUsernameChanged(it) },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.padding(8.dp))
         TextButton(
-            onClick = {
-                scope.launch {
-                    gameClient.connect(username)
-                }
-            }
+            onClick = { loginComponent.onLoginClicked() }
         ) {
             Text(text = "Connect")
         }

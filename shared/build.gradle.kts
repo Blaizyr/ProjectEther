@@ -46,7 +46,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.koin.core)
-                implementation(libs.bundles.ktor.client.base)
+                implementation(libs.bundles.shared.common)
                 implementation(libs.kotlinx.serialization.json)
             }
         }
@@ -70,24 +70,6 @@ kotlin {
                 implementation(libs.ktor.client.js)
             }
         }
-/*
-     // --- Common ---
-        val commonMain by getting (
-            dependencies {
-                implementation(libs.koin.core)
-                implementation(libs.bundles.ktor.client.base)
-            }
-        )
-
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
-        // --- Platforms ---
-//        iosMain.dependencies { libs.ktor.client.darwin }
-        wasmJsMain.dependencies { implementation(libs.ktor.client.js) }
-        jvmMain.dependencies { implementation(libs.ktor.client.cio) }
-        androidMain.dependencies { implementation(libs.ktor.client.okhttp) }
-        */
     }
 }
 

@@ -66,6 +66,7 @@ kotlin {
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 implementation(projects.shared)
                 implementation(libs.koin.core)
+                implementation(libs.bundles.composeApp.common)
             }
         }
         val commonTest by getting {
@@ -79,7 +80,6 @@ kotlin {
                 implementation(libs.androidx.activity.compose)
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.android)
-                implementation(libs.bundles.koin.compose)
                 implementation(libs.bundles.platform.android)
             }
         }
@@ -88,7 +88,6 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.kotlinx.coroutinesSwing)
                 implementation(project.dependencies.platform(libs.koin.bom))
-                implementation(libs.koin.compose)
                 implementation(libs.ktor.client.cio)
                 implementation(libs.kotzilla.sdk)
             }
