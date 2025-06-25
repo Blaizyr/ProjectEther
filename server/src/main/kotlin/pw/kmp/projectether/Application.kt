@@ -1,5 +1,4 @@
 package pw.kmp.projectether
-
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -9,9 +8,11 @@ import io.ktor.server.websocket.WebSockets
 import io.ktor.server.websocket.webSocket
 import io.ktor.websocket.Frame
 import io.ktor.websocket.readText
+import kotlinx.serialization.json.Json
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 import pw.kmp.projectether.di.sharedModule
+import pw.kmp.projectether.model.dto.LoginMessage
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
@@ -26,17 +27,19 @@ fun Application.module() {
     }
     routing {
         webSocket("/ws") {
-            val username = call.request.queryParameters["username"] ?: "unknown"
-            send(Frame.Text("Welcome, $username!"))
-
             for (frame in incoming) {
                 when (frame) {
                     is Frame.Text -> {
-                        val receivedText = frame.readText()
-                        println("Received from $username: $receivedText")
-                        send(Frame.Text("Echo: $receivedText"))
-
-                        outgoing.send(Frame.Text("Server received: $receivedText"))
+                        val receivedJson = frame.readText()
+                        try {
+                            val message = Json.decodeFromString<LoginMessage>(receivedJson)
+                            send(Frame.Text("Welcome, ${message.username}!"))
+                            println("Received from ${message.username}: $message")
+                            send(Frame.Text("Echo: $message"))
+                            outgoing.send(Frame.Text("Server received: $message"))
+                        } catch (e: Exception) {
+                            println("Error parsing JSON: ${e.message}")
+                        }
                     }
                     else -> Unit
                 }

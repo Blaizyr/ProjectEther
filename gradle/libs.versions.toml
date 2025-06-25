@@ -89,6 +89,7 @@ server = [
     "koin-ktor",
     "koin-logger-slf4j",
     "logback",
+    "kotlinx-serialization-json"
 ]
 
 ### shared ###
