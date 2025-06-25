@@ -77,6 +77,8 @@ decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose", 
 composeApp-common = [
     "decompose-core",
     "decompose-extensions",
+
+    "kotlinx-serialization-json"
 ]
 
 ### server ###
@@ -98,6 +100,8 @@ shared-common = [
     "ktor-client-json",
     # decompose
     "decompose-core",
+
+    "kotlinx-serialization-json"
 ]
 
 ### platform ###
@@ -115,4 +119,5 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotzilla = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }

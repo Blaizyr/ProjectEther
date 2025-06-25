@@ -129,7 +129,6 @@ dependencies {
 compose.desktop {
     application {
         mainClass = "pw.kmp.projectether.MainKt"
-
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "pw.kmp.projectether"
