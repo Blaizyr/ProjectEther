@@ -11,7 +11,7 @@ sealed class ClientMessage {
 
     @Serializable
     @SerialName("logout")
-    data object Logout: ClientMessage()
+    data class Logout(val playerId: String) : ClientMessage()
 
     @Serializable
     @SerialName("move")

@@ -1,4 +1,4 @@
-package pw.kmp.projectether.viewModel
+package pw.kmp.projectether.component
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
