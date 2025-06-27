@@ -5,6 +5,7 @@ import io.ktor.websocket.Frame
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import pw.kmp.projectether.model.player.Player
 import pw.kmp.projectether.model.session.PlayerSession
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.time.Clock
@@ -15,24 +16,27 @@ class GameSessionManager {
     private val players = ConcurrentHashMap<Long, PlayerSession>()
     private val sessionScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 
-    fun registerPlayer(id: Long, username: String?, session: WebSocketServerSession, worldId: Long = 0) {
-        players[id] = PlayerSession(
-            playerId = id,
-            username = username,
+    fun registerPlayerSession(player: Player, session: WebSocketServerSession) {
+        val playerSession = PlayerSession(
+            player = player,
             session = session,
-            worldId = worldId,
             startedAt = Clock.System.now()
         )
+        players[player.id] = playerSession
     }
+
     fun unregisterPlayer(id: Long) {
         players.remove(id)
     }
+
     fun getPlayer(id: Long): PlayerSession? {
         return players[id]
     }
+
     fun getPlayers(): Collection<PlayerSession> {
         return players.values.toList()
     }
+
     fun broadcast(message: String) {
         sessionScope.launch {
             players.values.forEach { player ->

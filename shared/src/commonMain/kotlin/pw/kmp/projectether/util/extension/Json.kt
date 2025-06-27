@@ -11,6 +11,6 @@ inline fun <reified T> T.encodeWithDiscriminator(): String {
     return jsonConfig.encodeToString(this)
 }
 
-inline fun <reified T> String.decideWithDiscriminator(): T {
+inline fun <reified T> String.decodeWithDiscriminator(): T {
     return jsonConfig.decodeFromString(this)
 }

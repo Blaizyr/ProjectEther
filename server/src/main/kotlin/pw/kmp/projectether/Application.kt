@@ -11,15 +11,19 @@ import io.ktor.server.websocket.WebSockets
 import io.ktor.server.websocket.webSocket
 import io.ktor.websocket.Frame
 import io.ktor.websocket.readText
+import org.koin.ktor.ext.inject
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 import pw.kmp.projectether.di.serverModule
 import pw.kmp.projectether.di.sharedModule
 import pw.kmp.projectether.model.dto.message.ClientMessage
 import pw.kmp.projectether.model.dto.message.ClientMessage.Login
-import pw.kmp.projectether.model.dto.message.ClientMessage.Move
 import pw.kmp.projectether.model.dto.message.ClientMessage.Logout
-import pw.kmp.projectether.util.extension.decideWithDiscriminator
+import pw.kmp.projectether.model.dto.message.ClientMessage.Move
+import pw.kmp.projectether.useCase.CreatePlayerUseCase
+import pw.kmp.projectether.useCase.GetPlayerUseCase
+import pw.kmp.projectether.util.extension.decodeWithDiscriminator
+import pw.kmp.projectether.util.extension.encodeWithDiscriminator
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
@@ -35,6 +39,10 @@ fun Application.module() {
             serverModule
         )
     }
+    val gameSessionManager: GameSessionManager by inject()
+    val getPlayerUseCase: GetPlayerUseCase by inject()
+    val createPlayerUseCase: CreatePlayerUseCase by inject()
+
     routing {
         webSocket("/ws") {
             for (frame in incoming) {
@@ -42,18 +50,25 @@ fun Application.module() {
                     is Frame.Text -> {
                         val receivedJson = frame.readText()
                         try {
-                            val message = receivedJson.decideWithDiscriminator<ClientMessage>()
+                            val message = receivedJson.decodeWithDiscriminator<ClientMessage>()
                             when (message) {
                                 is Login -> {
+                                    gameSessionManager.registerPlayerSession(
+                                        player = getPlayerUseCase.getPlayerByUsername(message.username)
+                                            ?: createPlayerUseCase.createPlayer(message.username)
+                                                .also { send(Frame.Text("${it.name} created!".encodeWithDiscriminator())) },
+                                        session = this,
+                                    )
                                     println("Player ${message.username} logged in")
-                                    GameSessionManager().registerPlayer(id = 0, username = message.username, session = this, worldId = 0)
-                                    send(Frame.Text("Welcome, ${message.username}!"))
+                                    send(Frame.Text("Welcome, ${message.username}!".encodeWithDiscriminator()))
                                 }
+
                                 is Logout -> {
-                                    GameSessionManager().unregisterPlayer(0)
+                                    gameSessionManager.unregisterPlayer(0)
                                 }
+
                                 is Move -> {
-                                    // 2. TODO("Handle move message") #2
+                                    // TODO("Handle move message") #2
                                 }
                             }
 

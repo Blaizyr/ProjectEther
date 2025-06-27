@@ -1,14 +1,12 @@
 package pw.kmp.projectether.model.session
 
 import io.ktor.server.websocket.WebSocketServerSession
+import pw.kmp.projectether.model.player.Player
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 data class PlayerSession @ExperimentalTime constructor(
-    val playerId: Long,
-    val username: String? = "",
+    val player: Player,
     val session: WebSocketServerSession,
-    val sessionId: Long? = null,
-    val worldId: Long,
     val startedAt: Instant,
 )

@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pw.kmp.projectether.model.dto.message.ClientMessage.Login
 import pw.kmp.projectether.model.dto.message.ServerMessage
-import pw.kmp.projectether.util.extension.decideWithDiscriminator
+import pw.kmp.projectether.util.extension.decodeWithDiscriminator
 import pw.kmp.projectether.util.extension.encodeWithDiscriminator
 
 class GameClient(private val client: HttpClient) {
@@ -31,12 +31,12 @@ class GameClient(private val client: HttpClient) {
         }
     }
 
-    private suspend fun startToListen() {
+    private suspend fun startToListen() { // TODO("revert session collision") @6
         client.webSocket("ws://192.168.1.21:8080/ws") {
             for (frame in incoming) {
                 if (frame is Frame.Text) {
                     val receivedText = frame.readText()
-                    val message = receivedText.decideWithDiscriminator<ServerMessage>()
+                    val message = receivedText.decodeWithDiscriminator<ServerMessage>()
                     when (message) {
                         is ServerMessage.Welcome -> {
                             // TODO("Handle welcome message") #3
