@@ -16,16 +16,7 @@ import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 import pw.kmp.projectether.di.serverModule
 import pw.kmp.projectether.di.sharedModule
-import pw.kmp.projectether.model.dto.message.ClientMessage
-import pw.kmp.projectether.model.dto.message.ClientMessage.Login
-import pw.kmp.projectether.model.dto.message.ClientMessage.Logout
-import pw.kmp.projectether.model.dto.message.ClientMessage.Move
-import pw.kmp.projectether.model.dto.message.ServerMessage
-import pw.kmp.projectether.model.dto.message.ServerMessage.Info
-import pw.kmp.projectether.useCase.CreatePlayerUseCase
-import pw.kmp.projectether.useCase.GetPlayerUseCase
-import pw.kmp.projectether.util.extension.decodeWithDiscriminator
-import pw.kmp.projectether.util.extension.encodeWithDiscriminator
+import pw.kmp.projectether.socket.WebSocketController
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
@@ -41,61 +32,19 @@ fun Application.module() {
             serverModule
         )
     }
-    val gameSessionManager: GameSessionManager by inject()
-    val getPlayerUseCase: GetPlayerUseCase by inject()
-    val createPlayerUseCase: CreatePlayerUseCase by inject()
+    val controller: WebSocketController by inject()
 
     routing {
         webSocket("/ws") {
             for (frame in incoming) {
-                when (frame) {
-                    is Frame.Text -> {
-                        val receivedJson = frame.readText()
-                        try {
-                            val message = receivedJson.decodeWithDiscriminator<ClientMessage>()
-                            when (message) {
-                                is Login -> {
-                                    gameSessionManager.registerPlayerSession(
-                                        player = getPlayerUseCase.getPlayerByUsername(message.username)
-                                            ?: createPlayerUseCase.createPlayer(message.username)
-                                                .also {
-                                                    send(
-                                                        Frame.Text(
-                                                            Info("${it.name} created!").encodeWithDiscriminator<ServerMessage>()
-                                                        )
-                                                    )
-                                                },
-                                        session = this,
-                                    )
-                                    println("Player ${message.username} logged in")
-                                    send(
-                                        Frame.Text(
-                                            Info("Welcome, ${message.username}!").encodeWithDiscriminator<ServerMessage>()
-                                        )
-                                    )
-                                }
-
-                                is Logout -> {
-                                    gameSessionManager.unregisterPlayer(0)
-                                }
-
-                                is Move -> {
-                                    // TODO("Handle move message") #2
-                                }
-                            }
-
-                        } catch (e: Exception) {
-                            println("Error parsing JSON: ${e.message}")
-                        }
-                    }
-
-                    else -> Unit
+                if (frame is Frame.Text) {
+                    controller.handleMessage(frame.readText(), this)
                 }
             }
-        }
 
-        get("/") {
-            call.respondText("Hello, world!")
+            get("/") {
+                call.respondText("Hello, world!")
+            }
         }
     }
 }
