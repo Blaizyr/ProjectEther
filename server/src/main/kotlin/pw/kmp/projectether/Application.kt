@@ -20,6 +20,8 @@ import pw.kmp.projectether.model.dto.message.ClientMessage
 import pw.kmp.projectether.model.dto.message.ClientMessage.Login
 import pw.kmp.projectether.model.dto.message.ClientMessage.Logout
 import pw.kmp.projectether.model.dto.message.ClientMessage.Move
+import pw.kmp.projectether.model.dto.message.ServerMessage
+import pw.kmp.projectether.model.dto.message.ServerMessage.Info
 import pw.kmp.projectether.useCase.CreatePlayerUseCase
 import pw.kmp.projectether.useCase.GetPlayerUseCase
 import pw.kmp.projectether.util.extension.decodeWithDiscriminator
@@ -56,11 +58,21 @@ fun Application.module() {
                                     gameSessionManager.registerPlayerSession(
                                         player = getPlayerUseCase.getPlayerByUsername(message.username)
                                             ?: createPlayerUseCase.createPlayer(message.username)
-                                                .also { send(Frame.Text("${it.name} created!".encodeWithDiscriminator())) },
+                                                .also {
+                                                    send(
+                                                        Frame.Text(
+                                                            Info("${it.name} created!").encodeWithDiscriminator<ServerMessage>()
+                                                        )
+                                                    )
+                                                },
                                         session = this,
                                     )
                                     println("Player ${message.username} logged in")
-                                    send(Frame.Text("Welcome, ${message.username}!".encodeWithDiscriminator()))
+                                    send(
+                                        Frame.Text(
+                                            Info("Welcome, ${message.username}!").encodeWithDiscriminator<ServerMessage>()
+                                        )
+                                    )
                                 }
 
                                 is Logout -> {

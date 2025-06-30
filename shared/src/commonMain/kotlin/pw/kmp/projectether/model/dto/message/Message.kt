@@ -4,6 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@SerialName("ClientMessage")
 sealed class ClientMessage {
     @Serializable
     @SerialName("login")
@@ -19,12 +20,13 @@ sealed class ClientMessage {
 }
 
 @Serializable
+@SerialName("ServerMessage")
 sealed class ServerMessage {
     @Serializable
     @SerialName("error")
     data class Error(val reason: String) : ServerMessage()
 
     @Serializable
-    @SerialName("welcome")
-    data class Welcome(val message: String) : ServerMessage()
+    @SerialName("info")
+    data class Info(val message: String) : ServerMessage()
 }
