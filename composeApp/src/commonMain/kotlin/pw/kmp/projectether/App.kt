@@ -6,6 +6,8 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.mp.KoinPlatform.getKoin
+import pw.kmp.projectether.component.GameLauncher
+import pw.kmp.projectether.ui.game.GameScreen
 import pw.kmp.projectether.ui.login.LoginScreen
 
 
@@ -14,7 +16,9 @@ import pw.kmp.projectether.ui.login.LoginScreen
 fun App() {
     MaterialTheme {
         val gameClient: GameClient = getKoin().get<GameClient>()
+        val gameLauncher: GameLauncher = getKoin().get<GameLauncher>()
         val componentContext = DefaultComponentContext(LifecycleRegistry()/* TODO("implement active lifecycle") #1 */)
-        LoginScreen(componentContext, gameClient)
+//        LoginScreen(componentContext, gameClient)
+        GameScreen(componentContext, gameLauncher)
     }
 }
