@@ -23,6 +23,10 @@ sealed class ClientMessage {
 @SerialName("ServerMessage")
 sealed class ServerMessage {
     @Serializable
+    @SerialName("logged_in")
+    data object LoggedIn : ServerMessage()
+
+    @Serializable
     @SerialName("error")
     data class Error(val reason: String) : ServerMessage()
 
