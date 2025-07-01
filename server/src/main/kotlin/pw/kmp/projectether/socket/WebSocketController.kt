@@ -42,6 +42,7 @@ class WebSocketController(
             }
         gameSessionManager.registerPlayerSession(player, session)
         session.send(Frame.Text(Info("Welcome, ${message.username}!").encodeWithDiscriminator<ServerMessage>()))
+        session.send(Frame.Text(ServerMessage.LoggedIn.encodeWithDiscriminator()))
     }
 
     private fun handleMove(message: Move) {

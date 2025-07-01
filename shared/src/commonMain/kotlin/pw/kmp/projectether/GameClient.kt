@@ -33,6 +33,7 @@ class GameClient(private val client: HttpClient) {
 
     private fun handleMessage(message: ServerMessage) {
         when (message) {
+            is ServerMessage.LoggedIn -> Unit
             is Info -> {
                 println("Welcome: ${message.message}")
                 // TODO("Handle welcome message") #3
