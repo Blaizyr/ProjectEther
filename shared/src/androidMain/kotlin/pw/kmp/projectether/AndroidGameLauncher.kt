@@ -6,14 +6,18 @@ import androidx.core.content.FileProvider
 import pw.kmp.projectether.component.GameLauncher
 import java.io.File
 
-class AndroidGameLauncher(private val context: Context) : GameLauncher {
+class AndroidGameLauncher(
+    private val context: Context,
+    private val clientPath: String,
+    private val packageName: String
+) : GameLauncher {
     override fun launchGodotClient() {
-        val launchIntent = context.packageManager.getLaunchIntentForPackage("com.projectether.godotclient")
+        val launchIntent = context.packageManager.getLaunchIntentForPackage(packageName)
 
         if (launchIntent != null) {
             context.startActivity(launchIntent)
         } else {
-            val file = File("/storage/emulated/0/Download/project_ether/game-android.apk")
+            val file = File(clientPath)
             val uri = FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
             val installIntent = Intent(Intent.ACTION_VIEW, uri).apply {
                 setDataAndType(uri, "application/vnd.android.package-archive")
