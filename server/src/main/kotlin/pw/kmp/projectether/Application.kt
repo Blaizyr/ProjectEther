@@ -16,6 +16,7 @@ import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 import pw.kmp.projectether.di.serverModule
 import pw.kmp.projectether.di.sharedModule
+import pw.kmp.projectether.service.GameServerLauncher
 import pw.kmp.projectether.socket.WebSocketController
 
 fun main() {
@@ -32,8 +33,10 @@ fun Application.module() {
             serverModule
         )
     }
-    launchGodotServer()
+    val serverLauncher: GameServerLauncher by inject()
     val controller: WebSocketController by inject()
+
+    serverLauncher.launch()
 
     routing {
         webSocket("/ws") {
@@ -48,21 +51,4 @@ fun Application.module() {
             }
         }
     }
-}
-
-fun launchGodotServer() {
-    val process = ProcessBuilder(
-        "A:\\proj\\godot\\game-server.exe",
-        "--headless"
-    )
-        .redirectOutput(ProcessBuilder.Redirect.INHERIT)
-        .redirectError(ProcessBuilder.Redirect.INHERIT)
-        .start()
-
-    Runtime.getRuntime().addShutdownHook(Thread {
-        println("Stopping Godot server...")
-        process.destroy()
-    })
-
-    println("🎮 Godot server launched.")
 }

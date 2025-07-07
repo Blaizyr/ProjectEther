@@ -1,4 +1,4 @@
-﻿package pw.kmp.projectether
+﻿package pw.kmp.projectether.service
 
 import io.ktor.server.websocket.WebSocketServerSession
 import io.ktor.websocket.Frame

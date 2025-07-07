@@ -2,7 +2,7 @@
 
 import io.ktor.server.websocket.WebSocketServerSession
 import io.ktor.websocket.Frame
-import pw.kmp.projectether.GameSessionManager
+import pw.kmp.projectether.service.GameSessionManager
 import pw.kmp.projectether.model.dto.message.ClientMessage
 import pw.kmp.projectether.model.dto.message.ClientMessage.Login
 import pw.kmp.projectether.model.dto.message.ClientMessage.Logout

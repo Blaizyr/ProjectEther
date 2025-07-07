@@ -62,10 +62,10 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-client-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 # --- Ktor Clients By Platforms  ---
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" } # IOS
-ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }         # WASM
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" } # Android
-ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }       # JVM
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 
 # --- Decompose ---
 decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
