@@ -7,26 +7,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import pw.kmp.projectether.Platform
 import pw.kmp.projectether.component.GameComponent
 import pw.kmp.projectether.component.GameLauncher
+import pw.kmp.projectether.ui.VirtualGamepad
 
 @Composable
-@Preview
 fun GameScreen(
+    platform: Platform,
     componentContext: ComponentContext,
     gameLauncher: GameLauncher,
 ) {
     val gameComponent = remember(componentContext, gameLauncher) {
         GameComponent(gameLauncher, componentContext)
     }
-    GodotFrame()
+
+    if (platform.isTouch) VirtualGamepad(
+        onRespawn = {},
+        onJump = {},
+        onMove = {},
+    ) { GodotFrame() }
+    else GodotFrame()
 }
 
 @Composable
-@Preview
 fun GodotFrame() {
-    //TODO("Godot fragment; godot-lib")
+    //TODO("Godot fragment; godot-lib") #6
     Column(modifier = Modifier.fillMaxSize()) {
         Text("Godot frame")
     }
