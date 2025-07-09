@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import pw.kmp.projectether.model.data.Direction
 
-
 @Composable
 fun VirtualGamepad(
     onMove: (Direction) -> Unit,

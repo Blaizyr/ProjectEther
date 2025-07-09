@@ -58,6 +58,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.bundles.platform.android)
+                implementation(mapOf("name" to "godot-lib-debug", "ext" to "aar"))
             }
         }
         val jvmMain by getting {
