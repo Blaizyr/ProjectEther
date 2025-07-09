@@ -25,9 +25,6 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        flatDir {
-            dirs("libs")
-        }
     }
 }
 

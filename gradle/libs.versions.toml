@@ -12,6 +12,7 @@ androidx-lifecycle = "2.9.0"
 androidx-testExt = "1.2.1"
 composeHotReload = "1.0.0-alpha10"
 composeMultiplatform = "1.8.1"
+godot = "4.4.1.stable"
 junit = "4.13.2"
 kotlin = "2.1.21"
 kotlinx-coroutines = "1.10.2"
@@ -71,6 +72,9 @@ ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
 
+# --- Godot Engine ---
+godot-engine = { module = "org.godotengine:godot", version.ref = "godot" }
+
 [bundles]
 ### composeApp ###
 composeApp-common = [
@@ -107,7 +111,8 @@ shared-common = [
 ### platform ###
 platform-android = [
     "ktor-client-okhttp",
-    "androidx-core"
+    "androidx-core",
+    "godot-engine"
 ]
 
 

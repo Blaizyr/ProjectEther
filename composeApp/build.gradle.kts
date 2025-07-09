@@ -81,8 +81,6 @@ kotlin {
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.android)
                 implementation(libs.bundles.platform.android)
-                implementation(mapOf("name" to "godot-lib-debug", "ext" to "aar"))
-                //    implementation(files("$rootDir/libs/godot-lib-debug.aar"))
             }
         }
         val desktopMain by getting {

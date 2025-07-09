@@ -35,8 +35,4 @@ class AndroidGameLauncher(
     */
 }
 
-class GodotEngine(
-
-) : GodotActivity() {
-
-}
+class GodotEngine : GodotActivity()
