@@ -7,18 +7,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import pw.kmp.projectether.godot.GodotClient
+import pw.kmp.projectether.godot.GodotClientLauncher
 
 data class GameClientState(
     val loggedIn: Boolean = false,
+    val godotClient: GodotClient? = null
 )
 
-interface GameLauncher {
-    fun launchGodotClient()
-}
-
 class GameComponent(
-    private val gameLauncher: GameLauncher,
+    private val godotClientLauncher: GodotClientLauncher,
 //    private val gameClient: GameClient,
     componentContext: ComponentContext
 ) : ComponentContext by componentContext, InstanceKeeper.Instance {
@@ -28,20 +28,28 @@ class GameComponent(
 
     private val godotScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
-
-    init { launchGodotClient() }
-    private fun launchGodotClient() { godotScope.launch { gameLauncher.launchGodotClient() } }
-/*
     init {
-        godotScope.launch { gameClient.events.collect { event ->
-            when (event) {
-                is GameClientEvent.LoggedIn -> {
-                    _uiState.update { it.copy(loggedIn = true) }
-                    gameLauncher.launchGodotClient()
-
-                }
-            }
-        } }
+        launchGodotClient()
     }
-*/
+
+    private fun launchGodotClient() {
+        godotScope.launch {
+            _uiState.update {
+                it.copy(godotClient = godotClientLauncher.launchGodotClient())
+            }
+        }
+    }
+    /* TODO("implement events of navigation") #8
+        init {
+            godotScope.launch { gameClient.events.collect { event ->
+                when (event) {
+                    is GameClientEvent.LoggedIn -> {
+                        _uiState.update { it.copy(loggedIn = true) }
+                        gameLauncher.launchGodotClient()
+
+                    }
+                }
+            } }
+        }
+    */
 }

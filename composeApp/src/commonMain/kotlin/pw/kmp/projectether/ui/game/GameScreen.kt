@@ -1,39 +1,41 @@
 ﻿package pw.kmp.projectether.ui.game
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
-import pw.kmp.projectether.Platform
+import pw.kmp.projectether.godot.GodotClient
+import pw.kmp.projectether.godot.GodotClientLauncher
+import pw.kmp.projectether.RenderContent
 import pw.kmp.projectether.component.GameComponent
-import pw.kmp.projectether.component.GameLauncher
 import pw.kmp.projectether.ui.VirtualGamepad
 
 @Composable
 fun GameScreen(
-    platform: Platform,
     componentContext: ComponentContext,
-    gameLauncher: GameLauncher,
+    godotClientLauncher: GodotClientLauncher,
 ) {
-    val gameComponent = remember(componentContext, gameLauncher) {
-        GameComponent(gameLauncher, componentContext)
+    val gameComponent = remember(componentContext, godotClientLauncher) {
+        GameComponent(godotClientLauncher, componentContext)
     }
+    val uiState by gameComponent.uiState.collectAsState()
 
-    if (platform.isTouch) VirtualGamepad(
-        onRespawn = {},
-        onJump = {},
-        onMove = {},
-    ) { GodotFrame() }
-    else GodotFrame()
+    GameScreen(
+        godotClient = uiState.godotClient ?: return,
+    )
 }
 
 @Composable
-fun GodotFrame() {
-    //TODO("Godot fragment; godot-lib") #6
-    Column(modifier = Modifier.fillMaxSize()) {
-        Text("Godot frame")
-    }
+private fun GameScreen(
+    godotClient: GodotClient,
+) {
+
+    if (godotClient.isTouch) VirtualGamepad(
+        onRespawn = {},
+        onJump = {},
+        onMove = {},
+        content = { godotClient.RenderContent() }
+    )
+    else godotClient.RenderContent()
 }
