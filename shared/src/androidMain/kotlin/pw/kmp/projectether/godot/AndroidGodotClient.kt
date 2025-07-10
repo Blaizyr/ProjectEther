@@ -4,6 +4,6 @@ import org.godotengine.godot.GodotFragment
 import pw.kmp.projectether.Platform
 
 class AndroidGodotClient(
-    godotClientFragment: GodotFragment,
+    val godotClientFragment: GodotFragment,
     override val platform: Platform,
 ) : GodotClient

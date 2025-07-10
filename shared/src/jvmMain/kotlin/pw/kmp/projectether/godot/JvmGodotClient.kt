@@ -3,6 +3,6 @@
 import pw.kmp.projectether.Platform
 
 class JvmGodotClient(
-    jvmGodotClientProcess: Process,
+    val jvmGodotClientProcess: Process,
     override val platform: Platform
 ) : GodotClient
