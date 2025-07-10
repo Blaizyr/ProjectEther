@@ -1,4 +1,4 @@
-﻿package pw.kmp.projectether
+﻿package pw.kmp.projectether.godot
 
 interface GodotClientLauncher {
     fun launchGodotClient() : GodotClient

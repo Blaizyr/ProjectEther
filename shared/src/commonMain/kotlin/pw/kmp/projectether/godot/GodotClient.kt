@@ -1,4 +1,6 @@
-﻿package pw.kmp.projectether
+﻿package pw.kmp.projectether.godot
+
+import pw.kmp.projectether.Platform
 
 interface GodotClient {
     val platform: Platform

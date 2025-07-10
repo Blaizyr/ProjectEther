@@ -1,13 +1,14 @@
-﻿package pw.kmp.projectether
+﻿package pw.kmp.projectether.godot
 
-import pw.kmp.projectether.component.GameLauncher
+import pw.kmp.projectether.getPlatform
 
-class JvmGameLauncher : GameLauncher {
-    override fun launchGodotClient() {
+class JvmGodotClientLauncher : GodotClientLauncher {
+    override fun launchGodotClient() : GodotClient {
         val godotBinary = "A:\\proj\\godot\\game-client-win.exe"
         val process = ProcessBuilder(godotBinary)
             .redirectOutput(ProcessBuilder.Redirect.INHERIT)
             .redirectError(ProcessBuilder.Redirect.INHERIT)
             .start()
+        return JvmGodotClient(process, getPlatform())
     }
 }
