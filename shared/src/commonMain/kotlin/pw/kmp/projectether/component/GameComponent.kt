@@ -28,15 +28,21 @@ class GameComponent(
     private val godotScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     init {
-        launchGodotClient()
+        initializeGodotClient()
     }
 
-    private fun launchGodotClient() {
+    fun shutdownGodot() = shutdownGodotClient()
+
+    private fun initializeGodotClient() {
         godotScope.launch {
             _uiState.update {
                 it.copy(godotClient = launchGodotClient())
             }
         }
+    }
+    private fun shutdownGodotClient() {
+        _uiState.value.godotClient?.shutdown()
+        _uiState.update { it.copy(godotClient = null) }
     }
     /* TODO("implement events of navigation") #8
         init {

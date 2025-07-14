@@ -7,5 +7,5 @@ import pw.kmp.projectether.godot.JvmGodotClient
 fun DesktopGodotContent(
     godotClient: JvmGodotClient
 ) {
-
+    godotClient.shutdown()
 }

@@ -3,6 +3,9 @@
 import pw.kmp.projectether.Platform
 
 class JvmGodotClient(
-    val jvmGodotClientProcess: Process,
+    private val jvmGodotClientProcess: Process,
     override val platform: Platform
-) : GodotClient
+) : GodotClient {
+
+    override fun shutdown() = jvmGodotClientProcess.destroy()
+}

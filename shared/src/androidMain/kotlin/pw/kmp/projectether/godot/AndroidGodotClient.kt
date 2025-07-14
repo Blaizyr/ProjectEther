@@ -6,4 +6,8 @@ import pw.kmp.projectether.Platform
 class AndroidGodotClient(
     val godotClientFragment: GodotFragment,
     override val platform: Platform,
-) : GodotClient
+) : GodotClient {
+    override fun shutdown() {
+        godotClientFragment.onDestroy()
+    }
+}

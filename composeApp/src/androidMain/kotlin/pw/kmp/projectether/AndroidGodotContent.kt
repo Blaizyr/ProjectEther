@@ -16,16 +16,20 @@ fun AndroidGodotContent(
     AndroidView(
         modifier = Modifier.fillMaxSize(),
         factory = { context ->
-            FrameLayout(context).apply {
+            val frameLayout = FrameLayout(context).apply {
                 id = View.generateViewId()
-
-                val activity = context as? FragmentActivity
-                    ?: error("Context is not FragmentActivity")
-
-                activity.supportFragmentManager.beginTransaction()
-                    .replace(this.id, godotClient.godotClientFragment)
-                    .commitNowAllowingStateLoss()
             }
+            frameLayout.post {
+                val activity = context as? FragmentActivity
+                    ?: error("AndroidGodotContent requires the context to be a FragmentActivity.")
+
+                if (activity.supportFragmentManager.findFragmentById(frameLayout.id) == null) {
+                    activity.supportFragmentManager.beginTransaction()
+                        .replace(frameLayout.id, godotClient.godotClientFragment)
+                        .commitNowAllowingStateLoss()
+                }
+            }
+            frameLayout
         }
     )
 }

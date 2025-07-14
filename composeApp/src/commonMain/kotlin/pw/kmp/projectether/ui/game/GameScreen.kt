@@ -6,8 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import com.arkivanov.decompose.ComponentContext
 import pw.kmp.projectether.godot.GodotClient
-import pw.kmp.projectether.godot.GodotClientLauncher
-import pw.kmp.projectether.RenderContent
+import pw.kmp.projectether.Content
 import pw.kmp.projectether.component.GameComponent
 import pw.kmp.projectether.ui.VirtualGamepad
 
