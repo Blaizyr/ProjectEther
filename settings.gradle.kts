@@ -25,6 +25,9 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        flatDir {
+            dirs("godotEngine")
+        }
     }
 }
 

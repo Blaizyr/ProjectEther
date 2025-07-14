@@ -58,6 +58,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.bundles.platform.android)
+                implementation(mapOf("name" to "godot-lib", "ext" to "aar"))
             }
         }
         val jvmMain by getting {
@@ -85,6 +86,7 @@ android {
         androidResources {
             ignoreAssetsPattern =
                 "!.svn:!.git:!.gitignore:!.ds_store:!*.scc:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
+            noCompress += listOf("pck", "PCK")
         }
     }
 }

@@ -15,7 +15,6 @@ import org.koin.ktor.ext.inject
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 import pw.kmp.projectether.di.serverModule
-import pw.kmp.projectether.di.sharedModule
 import pw.kmp.projectether.service.GameServerLauncher
 import pw.kmp.projectether.socket.WebSocketController
 
@@ -28,10 +27,7 @@ fun Application.module() {
     install(WebSockets)
     install(Koin) {
         slf4jLogger()
-        modules(
-            sharedModule,
-            serverModule
-        )
+        modules(serverModule)
     }
     val serverLauncher: GameServerLauncher by inject()
     val controller: WebSocketController by inject()

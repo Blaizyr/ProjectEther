@@ -81,6 +81,7 @@ kotlin {
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.android)
                 implementation(libs.bundles.platform.android)
+                implementation(mapOf("name" to "godot-lib", "ext" to "aar"))
             }
         }
         val desktopMain by getting {
@@ -103,12 +104,14 @@ android {
         androidResources {
             ignoreAssetsPattern =
                 "!.svn:!.git:!.gitignore:!.ds_store:!*.scc:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
+            noCompress += listOf("pck", "PCK")
         }
         applicationId = "pw.kmp.projectether"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        setProperty("archivesBaseName", "projectether")
     }
     packaging {
         resources {

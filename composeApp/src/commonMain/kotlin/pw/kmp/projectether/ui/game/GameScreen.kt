@@ -14,10 +14,9 @@ import pw.kmp.projectether.ui.VirtualGamepad
 @Composable
 fun GameScreen(
     componentContext: ComponentContext,
-    godotClientLauncher: GodotClientLauncher,
 ) {
-    val gameComponent = remember(componentContext, godotClientLauncher) {
-        GameComponent(godotClientLauncher, componentContext)
+    val gameComponent = remember(componentContext) {
+        GameComponent(componentContext)
     }
     val uiState by gameComponent.uiState.collectAsState()
 
@@ -35,7 +34,7 @@ private fun GameScreen(
         onRespawn = {},
         onJump = {},
         onMove = {},
-        content = { godotClient.RenderContent() }
+        content = { godotClient.Content() }
     )
-    else godotClient.RenderContent()
+    else godotClient.Content()
 }

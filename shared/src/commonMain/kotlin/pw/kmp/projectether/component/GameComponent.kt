@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import pw.kmp.projectether.godot.GodotClient
-import pw.kmp.projectether.godot.GodotClientLauncher
+import pw.kmp.projectether.godot.launchGodotClient
 
 data class GameClientState(
     val loggedIn: Boolean = false,
@@ -18,7 +18,6 @@ data class GameClientState(
 )
 
 class GameComponent(
-    private val godotClientLauncher: GodotClientLauncher,
 //    private val gameClient: GameClient,
     componentContext: ComponentContext
 ) : ComponentContext by componentContext, InstanceKeeper.Instance {
@@ -35,7 +34,7 @@ class GameComponent(
     private fun launchGodotClient() {
         godotScope.launch {
             _uiState.update {
-                it.copy(godotClient = godotClientLauncher.launchGodotClient())
+                it.copy(godotClient = launchGodotClient())
             }
         }
     }

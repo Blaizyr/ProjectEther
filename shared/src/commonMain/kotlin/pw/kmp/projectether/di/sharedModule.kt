@@ -5,6 +5,5 @@ import pw.kmp.projectether.GameClient
 import pw.kmp.projectether.createHttpClient
 
 val sharedModule = module {
-    single { createHttpClient() }
-    single { GameClient(get()) }
+    single { GameClient(createHttpClient()) }
 }
