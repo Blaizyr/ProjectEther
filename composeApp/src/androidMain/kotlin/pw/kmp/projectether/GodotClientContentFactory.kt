@@ -5,7 +5,7 @@ import pw.kmp.projectether.godot.AndroidGodotClient
 import pw.kmp.projectether.godot.GodotClient
 
 @Composable
-actual fun GodotClient.RenderContent() {
+actual fun GodotClient.Content() {
     val client = this as AndroidGodotClient
     AndroidGodotContent(client)
 }
