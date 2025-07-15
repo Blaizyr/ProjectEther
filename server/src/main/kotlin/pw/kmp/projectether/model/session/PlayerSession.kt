@@ -1,7 +1,7 @@
 package pw.kmp.projectether.model.session
 
 import io.ktor.server.websocket.WebSocketServerSession
-import pw.kmp.projectether.model.player.Player
+import pw.kmp.projectether.data.model.player.Player
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 

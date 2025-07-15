@@ -1,6 +1,6 @@
 ﻿package pw.kmp.projectether.repository
 
-import pw.kmp.projectether.model.player.Player
+import pw.kmp.projectether.data.model.player.Player
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 

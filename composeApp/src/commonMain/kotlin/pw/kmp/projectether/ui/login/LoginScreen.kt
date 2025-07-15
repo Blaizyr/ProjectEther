@@ -12,24 +12,15 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.arkivanov.decompose.ComponentContext
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import pw.kmp.projectether.GameClient
-import pw.kmp.projectether.component.LoginComponent
+import pw.kmp.projectether.component.login.LoginComponent
 
 @Composable
 @Preview
-fun LoginScreen(
-    componentContext: ComponentContext,
-    gameClient: GameClient
-) {
-    val loginComponent = remember(componentContext, gameClient) {
-        LoginComponent(gameClient, componentContext)
-    }
+fun LoginScreen(loginComponent: LoginComponent) {
     val uiState by loginComponent.uiState.collectAsState()
 
     Column(
@@ -50,7 +41,7 @@ fun LoginScreen(
         )
         Spacer(Modifier.padding(8.dp))
         TextButton(
-            onClick = { loginComponent.onLoginClicked() }
+            onClick = { loginComponent.onLoginClick() }
         ) {
             Text(text = "Connect")
         }

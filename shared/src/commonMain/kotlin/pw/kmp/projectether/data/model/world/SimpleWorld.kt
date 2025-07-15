@@ -1,4 +1,4 @@
-package pw.kmp.projectether.model.world
+package pw.kmp.projectether.data.model.world
 
 data class SimpleWorld(
     val id: Long,

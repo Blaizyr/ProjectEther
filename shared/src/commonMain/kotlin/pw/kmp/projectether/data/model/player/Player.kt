@@ -1,4 +1,4 @@
-package pw.kmp.projectether.model.player
+package pw.kmp.projectether.data.model.player
 
 data class Player(
     val id: Long,

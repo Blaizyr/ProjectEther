@@ -1,4 +1,4 @@
-﻿package pw.kmp.projectether.model.dto.message
+﻿package pw.kmp.projectether.data.model.dto.message
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

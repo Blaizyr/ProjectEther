@@ -3,26 +3,18 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import com.arkivanov.decompose.ComponentContext
 import pw.kmp.projectether.godot.GodotClient
 import pw.kmp.projectether.Content
-import pw.kmp.projectether.GameClient
-import pw.kmp.projectether.component.GameComponent
+import pw.kmp.projectether.component.game.GameComponent
 import pw.kmp.projectether.ui.VirtualGamepad
 
 @Composable
-fun GameScreen(
-    componentContext: ComponentContext,
-    gameClient: GameClient,
-) {
-    val gameComponent = remember(gameClient, componentContext) {
-        GameComponent(gameClient, componentContext)
-    }
+fun GameScreen(gameComponent: GameComponent) {
     val uiState by gameComponent.uiState.collectAsState()
+    val godotClientState by gameComponent.godotClientState.collectAsState()
 
     GameScreen(
-        godotClient = uiState.godotClient ?: return,
+        godotClient = godotClientState ?: return,
     )
 }
 

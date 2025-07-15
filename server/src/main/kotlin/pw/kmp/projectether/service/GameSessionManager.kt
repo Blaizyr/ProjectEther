@@ -5,7 +5,7 @@ import io.ktor.websocket.Frame
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import pw.kmp.projectether.model.player.Player
+import pw.kmp.projectether.data.model.player.Player
 import pw.kmp.projectether.model.session.PlayerSession
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.time.Clock
