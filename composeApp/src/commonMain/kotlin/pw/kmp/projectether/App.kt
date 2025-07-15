@@ -7,6 +7,7 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.mp.KoinPlatform.getKoin
 import pw.kmp.projectether.ui.game.GameScreen
+import pw.kmp.projectether.ui.login.LoginScreen
 
 
 @Composable
@@ -16,7 +17,6 @@ fun App() {
         val gameClient: GameClient = getKoin().get<GameClient>()
         val componentContext = DefaultComponentContext(LifecycleRegistry()/* TODO("implement active lifecycle") #1 */)
 //        LoginScreen(componentContext, gameClient)
-
-        GameScreen(componentContext)
+        GameScreen(componentContext, gameClient)
     }
 }

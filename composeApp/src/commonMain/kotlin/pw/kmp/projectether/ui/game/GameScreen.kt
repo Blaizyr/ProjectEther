@@ -7,15 +7,17 @@ import androidx.compose.runtime.remember
 import com.arkivanov.decompose.ComponentContext
 import pw.kmp.projectether.godot.GodotClient
 import pw.kmp.projectether.Content
+import pw.kmp.projectether.GameClient
 import pw.kmp.projectether.component.GameComponent
 import pw.kmp.projectether.ui.VirtualGamepad
 
 @Composable
 fun GameScreen(
     componentContext: ComponentContext,
+    gameClient: GameClient,
 ) {
-    val gameComponent = remember(componentContext) {
-        GameComponent(componentContext)
+    val gameComponent = remember(gameClient, componentContext) {
+        GameComponent(gameClient, componentContext)
     }
     val uiState by gameComponent.uiState.collectAsState()
 

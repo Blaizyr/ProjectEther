@@ -1,0 +1,14 @@
+CollisionShape3D
+PhysicalBone3D
+BoneAttachment3D
+MeshInstance3D
+CSGCylinder3D
+SpringBoneCollisionCapsule3D
+Node3D
+Skeleton3D
+Marker3D
+DirectionalLight3D
+WorldEnvironment
+Camera3D
+CollisionPolygon3D
+CharacterBody3D

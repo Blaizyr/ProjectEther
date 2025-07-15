@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import pw.kmp.projectether.GameClient
 import pw.kmp.projectether.godot.GodotClient
 import pw.kmp.projectether.godot.launchGodotClient
 
@@ -18,7 +19,7 @@ data class GameClientState(
 )
 
 class GameComponent(
-//    private val gameClient: GameClient,
+    private val gameClient: GameClient,
     componentContext: ComponentContext
 ) : ComponentContext by componentContext, InstanceKeeper.Instance {
 

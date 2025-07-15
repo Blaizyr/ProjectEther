@@ -1,0 +1,10 @@
+fc8a56933c4b1c8d796fdb8f7a9f9475
+::res://::1752570739
+export_presets.cfg::TextFile::-1::1752497258::0::1::::<><><>0<>0<><>::
+GameMode.gd::GDScript/GDScript::210870622297394916::1751614098::0::1::::<>Node<><>0<>0<><>::
+icon.svg::CompressedTexture2D/CompressedTexture2D::4213031761584648304::1749386310::1749386314::1::::<><><>0<>0<>221811d2248c16f73b9069fb9a1d19f7<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+main.gd::GDScript/GDScript::6801328418053815714::1751612782::0::1::::<>Node3D<><>0<>0<><>::
+main.tscn::PackedScene/PackedScene::8893595998885895649::1752235981::0::1::::<><><>0<>0<><>::uid://c35u5dqe408d7::::res://main.gd<>uid://bnrfcrriyxqw2::::res://player.gd
+player.gd::GDScript/GDScript::3334278148913286591::1750335188::0::1::::<>CharacterBody3D<><>0<>0<><>::
+skeleton.gd::GDScript/GDScript::6706258351277815712::1750340763::0::1::::<>Skeleton3D<><>0<>0<><>::
+::res://android/::1752058960
