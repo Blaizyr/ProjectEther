@@ -35,7 +35,7 @@ fun LoginScreen(loginComponent: LoginComponent) {
             modifier = Modifier.fillMaxWidth(),
         )
         OutlinedTextField(
-            value = uiState.username,
+            value = uiState.usernameInput,
             onValueChange = { loginComponent.onUsernameChanged(it) },
             modifier = Modifier.fillMaxWidth()
         )

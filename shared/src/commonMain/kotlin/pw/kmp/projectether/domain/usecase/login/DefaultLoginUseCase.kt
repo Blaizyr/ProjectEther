@@ -1,6 +1,7 @@
 ﻿package pw.kmp.projectether.domain.usecase.login
 
 import pw.kmp.projectether.GameClient
+import pw.kmp.projectether.data.model.session.Session
 
 interface LoginUseCase {
     suspend operator fun invoke(username: String, password: String): Result<Session>
