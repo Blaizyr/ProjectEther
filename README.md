@@ -4,19 +4,31 @@
 
 ---
 
-## ✨  Description | Opis | 
+## ✨  Description | Opis | Beskrivning | Beskrivelse | Descripción
 
-> An experimental 3D environment/game built using Compose Multiplatform and an embedded Godot engine.  
-> Merges UI, backend, and game logic into a unified Kotlin-based stack.
+> 🇬🇧 
+_An experimental 3D environment/game built using Compose Multiplatform and an embedded Godot engine.  
+Merges UI, backend, and game logic into a unified Kotlin-based stack._
 
-> Eksperymentalna gra/środowisko 3D zbudowane z Compose Multiplatform i wbudowanym silnikiem Godot.  
-> Połączenie świata UI, backendu i silnika gier – wszystko w jednym ekosystemie Kotlinowym.
+> 🇵🇱
+_Eksperymentalna gra/środowisko 3D zbudowane z Compose Multiplatform i wbudowanym silnikiem Godot.
+Połączenie świata UI, backendu i silnika gier – wszystko w jednym ekosystemie Kotlinowym._
 
-🇫🇷 _Un environnement expérimental en 3D construit avec Compose Multiplatform et le moteur Godot embarqué._  
-🇸🇪 _Ett experimentellt 3D-miljö byggd med Compose Multiplatform och inbäddad Godotmotor._
-🇳🇴 _Et eksperimentelt 3D-miljø bygget med Compose Multiplatform og innebygd Godot-motor._
+🇫🇷
+_Un environnement expérimental en 3D construit avec Compose Multiplatform et le moteur Godot embarqué.
+Il fusionne l’interface utilisateur, le backend et la logique du jeu dans une seule pile basée sur Kotlin._
 
+🇸🇪
+_Ett experimentellt 3D-miljö byggt med Compose Multiplatform och inbäddad Godotmotor.
+UI, backend och spellogik förenas i ett sammanhängande Kotlin-baserat system._
 
+🇳🇴
+_Et eksperimentelt 3D-miljø bygget med Compose Multiplatform og innebygd Godot-motor.
+Brukergrensesnitt, backend og spilllogikk samles i en helhetlig Kotlin-stakk._
+
+> 🇪🇸
+_Un entorno 3D experimental creado con Compose Multiplatform y el motor Godot integrado.
+Combina interfaz, backend y lógica de juego en un único stack basado en Kotlin._
 ---
 
 ## 🔧 Technologies
