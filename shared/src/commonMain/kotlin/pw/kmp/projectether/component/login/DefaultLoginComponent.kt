@@ -11,8 +11,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.io.IOException
+import org.koin.mp.KoinPlatform.getKoin
 import pw.kmp.projectether.GameClient
+import pw.kmp.projectether.domain.usecase.login.LoginUseCase
 
 data class LoginState(
     val username: String = "",
@@ -31,6 +32,7 @@ interface LoginComponent {
 
 class DefaultLoginComponent(
     override val onLoginSuccess: (sessionId: String) -> Unit,
+    private val loginUseCase: LoginUseCase = getKoin().get(),
     private val gameClient: GameClient,
     componentContext: ComponentContext,
 ) : LoginComponent, ComponentContext by componentContext, InstanceKeeper.Instance {
@@ -53,12 +55,24 @@ class DefaultLoginComponent(
     private fun login() {
         val (username, password) = uiState.value
         if (username.isNotBlank() && password.isNotBlank()) coroutineScope.launch {
-            try {
-                gameClient.connect(username, password)
-                _uiState.update { it.copy(username = "", password = "", success = true) }
-                if (uiState.value.success) onLoginSuccess("TestSession")
-            } catch (e: IOException) {
-                _uiState.update { it.copy(password = "", error = e.message) }
+            val result = loginUseCase(username, password)
+            result.onSuccess {
+                _uiState.update { loginState ->
+                    loginState.copy(
+                        username = "",
+                        password = "",
+                        success = true
+                    )
+                }
+                onLoginSuccess(it)
+            }
+            result.onFailure { e ->
+                _uiState.update { loginState ->
+                    loginState.copy(
+                        password = "",
+                        error = e.message
+                    )
+                }
             }
         }
     }
